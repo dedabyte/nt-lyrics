@@ -1,0 +1,27 @@
+$mainColor: rgba(220, 5, 30, 1);
+
+@font-face {
+  font-family: fontRegular;
+  src: url(RobotoCondensed-Regular.ttf);
+}
+@font-face {
+  font-family: fontBold;
+  src: url(RobotoCondensed-Bold.ttf);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  font-family: fontRegular, sans-serif;
+  font-size: 13px;
+}
+b {
+  font-family: fontBold;
+}
+.main {
+  height: 100%;
+}
