@@ -9,12 +9,7 @@
   angular
     .module('app')
     .constant('LSKEYS', {
-      lsVersion: 'lsVersion',
-      dbVersion: 'dbVersion',
-      favsVersion: 'favsVersion',
-      data: 'data',
-      favs: 'favs',
-      prefs: 'prefs'
+      data: 'data'
     });
 
   angular
@@ -70,11 +65,11 @@
         return prefixAndLink + key;
       }
 
-      var lsver = get(LSKEYS.lsVersion);
-      if(!lsver || LSKEYS > lsver){
-        localStorage.clear();
-        set(LSKEYS.lsVersion, LSVER);
-      }
+      //var lsver = get(LSKEYS.lsVersion);
+      //if(!lsver || LSKEYS > lsver){
+      //  localStorage.clear();
+      //  set(LSKEYS.lsVersion, LSVER);
+      //}
 
       svc.set = set;
       svc.get = get;

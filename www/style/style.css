@@ -13,12 +13,87 @@ html,
 body {
   height: 100%;
   font-family: fontRegular, sans-serif;
-  font-size: 13px; }
+  font-size: 16px; }
 
 b {
   font-family: fontBold; }
 
 .main {
   height: 100%; }
+
+.sec-setlist {
+  height: 100%;
+  position: relative; }
+  .sec-setlist .header {
+    height: 100px; }
+    .sec-setlist .header .popover-trigger {
+      float: left;
+      width: 100px;
+      height: 100px;
+      background-color: aliceblue; }
+    .sec-setlist .header .title-wrap {
+      float: left;
+      width: calc(100% - 100px - 100px);
+      height: 100px;
+      text-align: center; }
+      .sec-setlist .header .title-wrap .title-setlist {
+        font-size: 16px;
+        padding-top: 4px;
+        height: 24px;
+        background-color: burlywood; }
+      .sec-setlist .header .title-wrap .title-song {
+        font-size: 22px;
+        padding-top: 22px;
+        height: calc(100px - 24px);
+        background-color: antiquewhite; }
+  .sec-setlist .song-content {
+    padding-left: 150px;
+    height: calc(100% - 100px - 100px);
+    background-color: beige; }
+  .sec-setlist .footer {
+    height: 100px; }
+    .sec-setlist .footer .song-nav {
+      height: 100px;
+      float: left;
+      width: 50%; }
+      .sec-setlist .footer .song-nav.prev {
+        background-color: antiquewhite; }
+      .sec-setlist .footer .song-nav.next {
+        background-color: aliceblue; }
+  .sec-setlist .overlist-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; }
+    .sec-setlist .overlist-wrap .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 2; }
+    .sec-setlist .overlist-wrap .list {
+      position: absolute;
+      top: 0;
+      width: 60%;
+      height: 100%;
+      overflow: auto;
+      background-color: white;
+      z-index: 3; }
+      .sec-setlist .overlist-wrap .list.setlists {
+        left: 0; }
+      .sec-setlist .overlist-wrap .list.songs {
+        right: 0; }
+      .sec-setlist .overlist-wrap .list .item {
+        font-size: 20px;
+        padding: 20px 16px;
+        border-bottom: 1px solid; }
+        .sec-setlist .overlist-wrap .list .item.selected {
+          background-color: burlywood; }
+        .sec-setlist .overlist-wrap .list .item.no-lyrics {
+          color: red; }
 
 /*# sourceMappingURL=style.css.map */

@@ -4,24 +4,151 @@ $mainColor: rgba(220, 5, 30, 1);
   font-family: fontRegular;
   src: url(RobotoCondensed-Regular.ttf);
 }
+
 @font-face {
   font-family: fontBold;
   src: url(RobotoCondensed-Bold.ttf);
 }
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 html,
 body {
   height: 100%;
   font-family: fontRegular, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
 }
+
 b {
   font-family: fontBold;
 }
+
 .main {
   height: 100%;
 }
+
+$height--setlist-header: 100px;
+$height--setlist-title-setlist: 24px;
+
+$height--setlist-footer: 100px;
+$width--setlist-popover-trigger: 100px;
+
+.sec-setlist {
+  height: 100%;
+  position: relative;
+
+  .header {
+    height: $height--setlist-header;
+
+    .popover-trigger {
+      float: left;
+      width: $width--setlist-popover-trigger;
+      height: $height--setlist-header;
+      background-color: aliceblue;
+    }
+
+    .title-wrap {
+      float: left;
+      width: calc(100% - #{$width--setlist-popover-trigger} - #{$width--setlist-popover-trigger});
+      height: $height--setlist-header;
+      text-align: center;
+
+      .title-setlist {
+        font-size: 16px;
+        //line-height: $height--setlist-title-setlist;
+        padding-top: 4px;
+        height: $height--setlist-title-setlist;
+        background-color: burlywood;
+      }
+
+      .title-song {
+        font-size: 22px;
+        //line-height: calc(#{$height--setlist-header} - #{$height--setlist-title-setlist});
+        padding-top: 22px;
+        height: calc(#{$height--setlist-header} - #{$height--setlist-title-setlist});
+        background-color: antiquewhite;
+      }
+    }
+  }
+
+  .song-content {
+    padding-left: 150px;
+    height: calc(100% - #{$height--setlist-header} - #{$height--setlist-footer});
+    background-color: beige;
+  }
+
+  .footer {
+    height: $height--setlist-footer;
+
+    .song-nav {
+      height: $height--setlist-footer;
+      float: left;
+      width: 50%;
+
+      &.prev {
+        background-color: antiquewhite;
+      }
+
+      &.next {
+        background-color: aliceblue;
+      }
+    }
+  }
+
+  .overlist-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
+
+    .list {
+      position: absolute;
+      top: 0;
+      width: 60%;
+      height: 100%;
+      overflow: auto;
+      background-color: white;
+      z-index: 3;
+
+      &.setlists {
+        left: 0;
+      }
+
+      &.songs {
+        right: 0;
+      }
+
+      .item {
+        font-size: 20px;
+        padding: 20px 16px;
+        border-bottom: 1px solid;
+
+        &.selected {
+          background-color: burlywood;
+        }
+
+        &.no-lyrics {
+          color: red;
+        }
+      }
+    }
+  }
+
+}
+
