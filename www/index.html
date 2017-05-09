@@ -14,17 +14,28 @@
 
   <section class="sec-setlist">
     <div class="header">
-      <div class="popover-trigger setlist-list" ng-tap="isSetlistsListOpen = true"></div>
+      <div class="popover-trigger setlist-list" ng-tap="isSetlistsListOpen = true">LISTE</div>
       <div class="title-wrap">
         <div class="title-setlist" ng-bind="selectedSetlist.name"></div>
-        <div class="title-song" ng-bind="selectedSong.name"></div>
+        <div class="title-song" ng-bind="(selectedSongIndex+1) + '. ' + selectedSong.name"></div>
       </div>
-      <div class="popover-trigger songs-list" ng-tap="isSongsListOpen = true"></div>
+      <div class="popover-trigger songs-list" ng-tap="isSongsListOpen = true">PESME</div>
     </div>
     <div class="song-content"></div>
     <div class="footer">
-      <div class="song-nav prev"></div>
-      <div class="song-nav next"></div>
+      <div class="song-nav prev"
+           ng-tap="selectPrevSong()"
+           ng-style="{ visibility: songs[selectedSongIndex-1] ? 'visible' : 'hidden' }">
+        <div class="song-nav-arrow">&#9664;</div>
+        <div class="song-nav-title" ng-bind="selectedSongIndex + '. ' + songs[selectedSongIndex-1].name"></div>
+      </div>
+      <div class="divider"></div>
+      <div class="song-nav next"
+           ng-tap="selectNextSong()"
+           ng-style="{ visibility: songs[selectedSongIndex+1] ? 'visible' : 'hidden' }">
+        <div class="song-nav-title" ng-bind="(selectedSongIndex+2) + '. ' + songs[selectedSongIndex+1].name"></div>
+        <div class="song-nav-arrow">&#9654;</div>
+      </div>
     </div>
 
     <div class="overlist-wrap" ng-show="isSetlistsListOpen">
@@ -45,7 +56,7 @@
              ng-repeat="song in songs"
              ng-bind="($index+1) + '. ' + song.name"
              ng-class="{ selected: selectedSong === song, 'no-lyrics': !hasSongLyrics(song) }"
-             ng-tap="selectSong(song)"></div>
+             ng-tap="selectSong(song, $index)"></div>
       </div>
     </div>
   </section>

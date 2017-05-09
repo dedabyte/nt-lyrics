@@ -19,10 +19,10 @@
       }
 
       function getLatestData(path){
-        var lsData = LsService.get(LSKEYS.data);
-        if(lsData){
-          return $q.resolve(lsData);
-        }
+        //var lsData = LsService.get(LSKEYS.data);
+        //if(lsData){
+        //  return $q.resolve(lsData);
+        //}
 
         return $http.get(getUrl(path || '')).then(
           function(response){
@@ -30,6 +30,10 @@
             return $q.resolve(response.data);
           },
           function(error){
+            var lsData = LsService.get(LSKEYS.data);
+            if(lsData){
+              return $q.resolve(lsData);
+            }
             return $q.reject(error);
           }
         );

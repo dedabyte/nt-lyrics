@@ -43,7 +43,7 @@
             name: 'SVE PESME',
             isAll: true
           });
-          console.log(arrSetlists);
+          //console.log(arrSetlists);
           scope.setlists = arrSetlists;
 
           objSongs = data.songs;
@@ -57,12 +57,16 @@
             }
             return 0;
           });
-          console.log(arrSongs);
+          //console.log(arrSongs);
 
           objLyrics = data.lyrics;
-          console.log(data.lyrics);
+          //console.log(data.lyrics);
 
           selectSetlist(arrSetlists[0]);
+
+          console.log(JSON.stringify(_.map(arrSongs, function(song){
+            return [song.name, song.id]
+          }), null, 2));
         }
 
         function filterSongsForSelectedSetlist(){
@@ -76,7 +80,7 @@
               }
             });
           }
-          selectSong(scope.songs[0]);
+          selectSong(scope.songs[0], 0);
         }
 
         function selectSetlist(setlist){
@@ -85,8 +89,9 @@
           filterSongsForSelectedSetlist();
         }
 
-        function selectSong(song){
+        function selectSong(song, index){
           scope.selectedSong = song;
+          scope.selectedSongIndex = index;
           scope.isSongsListOpen = false;
 
           jqSongContent.empty();
@@ -98,12 +103,26 @@
           }
         }
 
+        function selectNextSong(){
+          var nextIndex = scope.selectedSongIndex + 1;
+          var songToSelect = scope.songs[nextIndex];
+          selectSong(songToSelect, nextIndex);
+        }
+
+        function selectPrevSong(){
+          var prevIndex = scope.selectedSongIndex - 1;
+          var songToSelect = scope.songs[prevIndex];
+          selectSong(songToSelect, prevIndex);
+        }
+
         function hasSongLyrics(song){
           return objLyrics.hasOwnProperty(song.id);
         }
 
         scope.selectSetlist = selectSetlist;
         scope.selectSong = selectSong;
+        scope.selectNextSong = selectNextSong;
+        scope.selectPrevSong = selectPrevSong;
         scope.hasSongLyrics = hasSongLyrics;
 
         getLatestData();

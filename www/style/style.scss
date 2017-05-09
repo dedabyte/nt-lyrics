@@ -1,4 +1,4 @@
-$mainColor: rgba(220, 5, 30, 1);
+$mainColor: #ff8000;
 
 @font-face {
   font-family: fontRegular;
@@ -31,71 +31,109 @@ b {
   height: 100%;
 }
 
-$height--setlist-header: 100px;
-$height--setlist-title-setlist: 24px;
+$height--setlist-header: 80px;
+$height--setlist-title-setlist: 26px;
 
 $height--setlist-footer: 100px;
 $width--setlist-popover-trigger: 100px;
 
 .sec-setlist {
   height: 100%;
-  position: relative;
+  //position: relative;
+  display: flex;
+  flex-direction: column;
 
   .header {
     height: $height--setlist-header;
+    display: flex;
+    background-color: white;
+    z-index: 1;
 
     .popover-trigger {
-      float: left;
       width: $width--setlist-popover-trigger;
-      height: $height--setlist-header;
-      background-color: aliceblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #999;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+
+      &.active {
+        background-color: $mainColor;
+      }
     }
 
     .title-wrap {
-      float: left;
-      width: calc(100% - #{$width--setlist-popover-trigger} - #{$width--setlist-popover-trigger});
-      height: $height--setlist-header;
-      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
 
       .title-setlist {
-        font-size: 16px;
-        //line-height: $height--setlist-title-setlist;
-        padding-top: 4px;
         height: $height--setlist-title-setlist;
-        background-color: burlywood;
+        background-color: #e8e8e8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .title-song {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 22px;
-        //line-height: calc(#{$height--setlist-header} - #{$height--setlist-title-setlist});
-        padding-top: 22px;
-        height: calc(#{$height--setlist-header} - #{$height--setlist-title-setlist});
-        background-color: antiquewhite;
       }
     }
   }
 
   .song-content {
+    margin-top: -30px;
+    padding-bottom: 30px;
+    flex: 1;
     padding-left: 150px;
-    height: calc(100% - #{$height--setlist-header} - #{$height--setlist-footer});
-    background-color: beige;
+    overflow: auto;
+
+    span {
+      font-size: 22px !important;
+    }
   }
 
   .footer {
     height: $height--setlist-footer;
+    background-color: white;
+    z-index: 1;
+    display: flex;
 
     .song-nav {
-      height: $height--setlist-footer;
-      float: left;
-      width: 50%;
+      flex: 1;
+      display: flex;
+      background-color: #e8e8e8;
 
-      &.prev {
-        background-color: antiquewhite;
+      &.active {
+        background-color: $mainColor;
+        color: white;
       }
 
-      &.next {
-        background-color: aliceblue;
+      .song-nav-title {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
       }
+
+      .song-nav-arrow {
+        width: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+      }
+    }
+
+    .divider {
+      width: 6px;
     }
   }
 
@@ -123,7 +161,7 @@ $width--setlist-popover-trigger: 100px;
       width: 60%;
       height: 100%;
       overflow: auto;
-      background-color: white;
+      background-color: #dfdfdf;
       z-index: 3;
 
       &.setlists {
@@ -137,10 +175,12 @@ $width--setlist-popover-trigger: 100px;
       .item {
         font-size: 20px;
         padding: 20px 16px;
-        border-bottom: 1px solid;
+        margin-bottom: 1px;
+        background-color: white;
 
         &.selected {
-          background-color: burlywood;
+          background-color: $mainColor;
+          color: white;
         }
 
         &.no-lyrics {
@@ -149,6 +189,5 @@ $width--setlist-popover-trigger: 100px;
       }
     }
   }
-
 }
 
