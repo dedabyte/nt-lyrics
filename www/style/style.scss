@@ -91,10 +91,11 @@ $color--buttons-bg: #ddd;
   }
 
   .song-content {
-    margin-top: -30px;
+    //margin-top: -30px;
+    padding-top: 10px;
     padding-bottom: 30px;
     flex: 1;
-    padding-left: 65px;
+    padding-left: 55px;
     overflow: auto;
 
     //span {

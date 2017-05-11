@@ -58,10 +58,10 @@ b {
         align-items: center;
         font-size: 24px; }
   .sec-setlist .song-content {
-    margin-top: -30px;
+    padding-top: 10px;
     padding-bottom: 30px;
     flex: 1;
-    padding-left: 65px;
+    padding-left: 55px;
     overflow: auto; }
   .sec-setlist .font-sizer {
     position: absolute;
