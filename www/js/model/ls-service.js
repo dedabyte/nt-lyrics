@@ -9,6 +9,7 @@
   angular
     .module('app')
     .constant('LSKEYS', {
+      fontSize: 'fontSize',
       data: 'data'
     });
 
