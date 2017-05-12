@@ -10,6 +10,7 @@
     .module('app')
     .constant('LSKEYS', {
       fontSize: 'fontSize',
+      fontBold: 'fontBold',
       data: 'data'
     });
 

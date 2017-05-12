@@ -96,7 +96,7 @@
             scope.selectedSongIndex = index;
             scope.isSongsListOpen = false;
 
-            jqSongContent.empty();
+            jqSongContent.empty().scrollTop();
             if(objLyrics.hasOwnProperty(song.id)){
               var jqSongElement = $(objLyrics[song.id]);
               var jqStyle = jqSongElement.find('style');
@@ -130,6 +130,21 @@
             LsService.set(LSKEYS.fontSize, scope.fontSize);
           }
 
+          scope.isBold = LsService.get(LSKEYS.fontBold);
+          if(scope.isBold !== true && scope.isBold !== false){
+            scope.isBold = true;
+          }
+          function getBold(){
+            if(!scope.isBold){
+              return 'span { font-weight: normal !important; }'
+            }
+            return '';
+          }
+          function toggleBold(){
+            scope.isBold = !scope.isBold;
+            LsService.set(LSKEYS.fontBold, scope.isBold);
+          }
+
           scope.selectSetlist = selectSetlist;
           scope.selectSong = selectSong;
           scope.selectNextSong = selectNextSong;
@@ -137,6 +152,8 @@
           scope.hasSongLyrics = hasSongLyrics;
           scope.getFontSize = getFontSize;
           scope.changeFontSize = changeFontSize;
+          scope.getBold = getBold;
+          scope.toggleBold = toggleBold;
 
           getLatestData();
 

@@ -23,11 +23,13 @@
       <div class="song-nav-arrow">&#9654;</div>
     </div>
   </div>
+
   <div class="font-sizer">
     <div class="button" ng-tap="changeFontSize(1)">+</div>
     <div class="divider"></div>
     <div class="button" ng-tap="changeFontSize(-1)">-</div>
   </div>
+  <div class="font-bolder" ng-tap="toggleBold()" ng-class="{ selected: isBold }">B</div>
 
   <div class="overlist-wrap" ng-show="isSetlistsListOpen">
     <div class="overlay" ng-tap="isSetlistsListOpen = false"></div>
