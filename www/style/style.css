@@ -26,7 +26,7 @@ b {
   display: flex;
   flex-direction: column; }
   .sec-setlist .header {
-    height: 74px;
+    height: 64px;
     display: flex;
     background-color: white;
     z-index: 1; }
@@ -63,9 +63,16 @@ b {
     flex: 1;
     padding-left: 55px;
     overflow: auto; }
+    .sec-setlist .song-content .p {
+      line-height: 1.2; }
+    .sec-setlist .song-content .tab {
+      padding-left: 24px; }
+    .sec-setlist .song-content .star {
+      color: #888;
+      font-weight: normal !important; }
   .sec-setlist .font-sizer {
     position: absolute;
-    bottom: 80px;
+    bottom: 70px;
     margin-bottom: 10px;
     left: 0;
     height: 120px;
@@ -87,7 +94,7 @@ b {
       height: 2px; }
   .sec-setlist .font-bolder {
     position: absolute;
-    bottom: calc(80px + 120px + 20px);
+    bottom: calc(70px + 120px + 20px);
     left: 0;
     height: 60px;
     width: 50px;
@@ -104,7 +111,7 @@ b {
       background-color: #777;
       color: white; }
   .sec-setlist .footer {
-    height: 80px;
+    height: 70px;
     background-color: white;
     z-index: 1;
     display: flex; }
@@ -166,7 +173,5 @@ b {
           color: white; }
         .sec-setlist .overlist-wrap .list .item.no-lyrics {
           color: red; }
-  .sec-setlist p {
-    line-height: 1.2 !important; }
 
 /*# sourceMappingURL=style.css.map */

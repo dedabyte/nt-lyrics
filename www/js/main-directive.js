@@ -91,6 +91,20 @@
             filterSongsForSelectedSetlist();
           }
 
+          //function selectSong(song, index){
+          //  scope.selectedSong = song;
+          //  scope.selectedSongIndex = index;
+          //  scope.isSongsListOpen = false;
+          //
+          //  jqSongContent.empty().scrollTop();
+          //  if(objLyrics.hasOwnProperty(song.id)){
+          //    var jqSongElement = $(objLyrics[song.id]);
+          //    var jqStyle = jqSongElement.find('style');
+          //    var jqSong = jqSongElement.find('nt-body');
+          //    jqSongContent.empty().append(jqStyle).append(jqSong.html());
+          //  }
+          //}
+
           function selectSong(song, index){
             scope.selectedSong = song;
             scope.selectedSongIndex = index;
@@ -98,10 +112,24 @@
 
             jqSongContent.empty().scrollTop();
             if(objLyrics.hasOwnProperty(song.id)){
-              var jqSongElement = $(objLyrics[song.id]);
-              var jqStyle = jqSongElement.find('style');
-              var jqSong = jqSongElement.find('nt-body');
-              jqSongContent.empty().append(jqStyle).append(jqSong.html());
+              var starCounter = 0;
+              var lyricsHtml = objLyrics[song.id]
+                .replace(/\t/g, '<span class="tab"></span>')
+                .replace(/\*/g, function(){
+                  var rest = starCounter % 2;
+                  starCounter++;
+                  if(!rest){
+                    return '<span class="star">';
+                  }
+                  return '</span>';
+                })
+                .split('\n')
+                .map(function(p){
+                  return '<p class="p">' + p + '</p>';
+                })
+                .join('');
+
+              jqSongContent.html(lyricsHtml);
             }
           }
 
@@ -118,12 +146,12 @@
           }
 
           function hasSongLyrics(song){
-            return objLyrics.hasOwnProperty(song.id);
+            return objLyrics.hasOwnProperty(song.id) && objLyrics[song.id];
           }
 
           scope.fontSize = LsService.get(LSKEYS.fontSize) || 22;
           function getFontSize(){
-            return 'span { font-size: ' + scope.fontSize + 'px !important; }'
+            return '.p { font-size: ' + scope.fontSize + 'px; min-height: ' + scope.fontSize + 'px; }'
           }
           function changeFontSize(increment){
             scope.fontSize = scope.fontSize + increment;
@@ -136,9 +164,11 @@
           }
           function getBold(){
             if(!scope.isBold){
-              return 'span { font-weight: normal !important; }'
+              return '.p { font-weight: normal; }';
+            }else{
+              return '.p { font-weight: bold; }';
             }
-            return '';
+            //return '';
           }
           function toggleBold(){
             scope.isBold = !scope.isBold;

@@ -31,12 +31,12 @@ b {
   height: 100%;
 }
 
-$height--setlist-header: 74px;
+$height--setlist-header: 64px;
 $height--setlist-title-setlist: 26px;
 $height--font-sizer: 120px;
 $height--font-bolder: 60px;
 
-$height--setlist-footer: 80px;
+$height--setlist-footer: 70px;
 $width--setlist-popover-trigger: 100px;
 
 $fontSize--titles: 24px;
@@ -98,6 +98,17 @@ $color--buttons-bg: #ddd;
     flex: 1;
     padding-left: 55px;
     overflow: auto;
+
+    .p {
+      line-height: 1.2;
+    }
+    .tab {
+      padding-left: 24px;
+    }
+    .star {
+      color: #888;
+      font-weight: normal !important;
+    }
   }
 
   .font-sizer {
@@ -248,7 +259,7 @@ $color--buttons-bg: #ddd;
   }
 
   // previewer styles
-  p {
-    line-height: 1.2 !important;
-  }
+  //p {
+  //  line-height: 1.2 !important;
+  //}
 }

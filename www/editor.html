@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NT Lyrics Editor</title>
+</head>
+<body ng-app="app">
+
+<div class="main" ntle-main>
+
+  <div class="songs-list">
+    <div class="song"
+         ng-repeat="song in songs"
+         ng-class="{ selected: $parent.selectedSong.id === song.id }"
+         ng-bind="song.name"
+         ng-click="selectSong(song)"></div>
+  </div>
+  <div class="lyrics-wrap">
+    <div class="toolbar">
+      <button ng-click="saveLyrics()">save</button>
+    </div>
+    <div class="lyrics">
+      <textarea ng-model="selectedSongLyrics"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<link href="editor/editor.css" rel="stylesheet">
+
+<script src="lib/lodash.core.js"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/angular.js"></script>
+
+<script src="editor/editor.js"></script>
+</body>
+</html>

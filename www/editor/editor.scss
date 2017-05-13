@@ -1,0 +1,69 @@
+$mainColor: #ff8000;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #666;
+}
+
+.main {
+  height: 100%;
+  display: flex;
+}
+
+.songs-list {
+  width: 300px;
+  overflow: auto;
+  border-right: 1px solid #dfdfdf;
+
+  .song {
+    padding: 8px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #dfdfdf;
+
+    &:hover {
+      background-color: #dfdfdf;
+    }
+
+    &.selected {
+      color: white;
+      background-color: $mainColor;
+    }
+  }
+}
+
+.lyrics-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .toolbar {
+    height: 60px;
+    border-bottom: 1px solid #dfdfdf;
+  }
+
+  .lyrics {
+    flex: 1;
+    overflow: hidden;
+
+    textarea {
+      margin: 0;
+      padding: 16px;
+      font-size: 16px;
+      font-family: sans-serif;
+      border: 0;
+      resize: none;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
