@@ -9,19 +9,61 @@
 
 <div class="main" ntle-main>
 
-  <div class="songs-list">
-    <div class="song"
-         ng-repeat="song in songs"
-         ng-class="{ selected: $parent.selectedSong.id === song.id }"
-         ng-bind="song.name"
-         ng-click="selectSong(song)"></div>
+  <div class="songs-wrap">
+    <div class="songs-filter">
+      <input type="text" placeholder="filter..." ng-model="songsFilter">
+    </div>
+    <div class="songs-list">
+      <div class="song"
+           ng-repeat="song in (filteredSongs = (songs | filter:songsFilter))"
+           ng-class="{ selected: $parent.selectedSong.id === song.id }"
+           ng-bind="song.name"
+           ng-click="selectSong(song)"
+           title="{{song.id}}"></div>
+    </div>
   </div>
+
+
+
+
   <div class="lyrics-wrap">
     <div class="toolbar">
-      <button ng-click="saveLyrics()">save</button>
+      <button ng-click="saveLyrics()" ng-disabled="!selectedSongLyrics || inProgress">Sačuvaj tekst</button>
+      <button ng-click="openNewSongWindow()" style="float: right" ng-disabled="inProgress">Nova pesma</button>
     </div>
     <div class="lyrics">
       <textarea ng-model="selectedSongLyrics"></textarea>
+    </div>
+    <div class="footer" ng-bind="footerMessage" ng-class="footerClass"></div>
+  </div>
+
+
+
+
+
+  <div class="window-overlay" ng-style="{ display: showNewSongWindow ? 'block' : 'none' }">
+    <div class="window-wrap">
+      <div class="window">
+        <div class="window-x clickable-c" ng-click="showNewSongWindow = false">x</div>
+        <div class="window-title">Nova pesma</div>
+        <div class="body">
+          <p>
+            <span class="label">Naziv pesme:</span>
+            <span class="widget">
+              <input type="text" class="input" ng-model="newSongModel.name"/>
+            </span>
+          </p>
+          <p>
+            <span class="label">Naziv pesme ALT:</span>
+            <span class="widget">
+              <input type="text" class="input" ng-model="newSongModel.nameAlt"/>
+            </span>
+          </p>
+          <p style="text-align: right">
+            <button ng-click="saveNewSong()" ng-disabled="!newSongModel.name || !newSongModel.nameAlt || inProgress">Sačuvaj</button>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -29,7 +71,7 @@
 
 <link href="editor/editor.css" rel="stylesheet">
 
-<script src="lib/lodash.core.js"></script>
+<script src="lib/lodash.js"></script>
 <script src="lib/jquery.js"></script>
 <script src="lib/angular.js"></script>
 

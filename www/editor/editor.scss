@@ -1,4 +1,7 @@
 $mainColor: #ff8000;
+$toolbarHeight: 32px;
+$footerHeight: 24px;
+$altBgColor: #F7F5F5;
 
 * {
   box-sizing: border-box;
@@ -19,23 +22,48 @@ body {
   display: flex;
 }
 
-.songs-list {
+.songs-wrap {
   width: 300px;
-  overflow: auto;
   border-right: 1px solid #dfdfdf;
+  display: flex;
+  flex-direction: column;
 
-  .song {
-    padding: 8px 16px;
-    cursor: pointer;
+  .songs-filter {
+    height: $toolbarHeight;
+    background-color: $altBgColor;
     border-bottom: 1px solid #dfdfdf;
 
-    &:hover {
-      background-color: #dfdfdf;
+    input {
+      display: block;
+      height: 100%;
+      width: 100%;
+      padding: 0 16px;
+      margin: 0;
+      border: none;
+      background-color: transparent;
+      line-height: $toolbarHeight;
+      font-size: 13px;
+      color: #666;
     }
+  }
 
-    &.selected {
-      color: white;
-      background-color: $mainColor;
+  .songs-list {
+    flex: 1;
+    overflow: auto;
+
+    .song {
+      padding: 8px 16px;
+      cursor: pointer;
+      border-bottom: 1px solid #dfdfdf;
+
+      &:hover {
+        background-color: #dfdfdf;
+      }
+
+      &.selected {
+        color: white;
+        background-color: $mainColor;
+      }
     }
   }
 }
@@ -46,8 +74,30 @@ body {
   flex-direction: column;
 
   .toolbar {
-    height: 60px;
+    height: $toolbarHeight;
     border-bottom: 1px solid #dfdfdf;
+
+    button {
+      height: $toolbarHeight;
+      margin: 0;
+      padding: 0 12px;
+    }
+  }
+
+  .footer {
+    height: $footerHeight;
+    line-height: $footerHeight;
+    border-top: 1px solid #dfdfdf;
+    font-size: 13px;
+    padding: 0 16px;
+
+    &.red {
+      color: red;
+    }
+  }
+
+  .toolbar, .footer {
+    background-color: $altBgColor;
   }
 
   .lyrics {
@@ -58,12 +108,91 @@ body {
       margin: 0;
       padding: 16px;
       font-size: 16px;
-      font-family: sans-serif;
+      font-family: 'Consolas', monospace;
       border: 0;
       resize: none;
       width: 100%;
       height: 100%;
     }
   }
+}
+
+.window-overlay {
+  display: none;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.window-wrap {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 70px 20px;
+}
+
+.window {
+  margin: 0 auto;
+  max-width: 332px;
+  background-color: $altBgColor;
+  box-shadow: 0 1px 4px #777;
+  position: relative;
+  height: 200px;
+
+  p {
+    padding: 0 16px;
+    margin: 10px 0;
+    // height: 24px;
+    line-height: 24px;
+    position: relative;
+  }
+
+  .input {
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 3px 5px;
+    margin: 0;
+    height: 24px;
+    outline: none;
+    width: 300px;
+  }
+
+  .label, .widget {
+    display: block;
+    height: 24px;
+  }
+
+  button {
+    height: 24px;
+    margin: 0;
+    padding: 0 12px;
+  }
+}
+
+.window-x {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 30px;
+  line-height: 30px;
+  width: 30px;
+  //color: $color--action;
+  text-align: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.window-title {
+  padding: 0 16px;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 30px;
+  background-color: darken($altBgColor, 10);
 }
 

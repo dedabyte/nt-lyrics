@@ -28,8 +28,13 @@
         return $http.patch(getUrl(json), data);
       }
 
+      function put(json, data){
+        return $http.put(getUrl(json), data);
+      }
+
       svc.get = get;
       svc.patch = patch;
+      svc.put = put;
 
     });
 
@@ -37,58 +42,139 @@
     .module('app')
     .directive('ntleMain', function ntleMain(DbService){
       return {
-        link: function(scope, element){
+        link: function(scope){
+          scope.newSongModel = {};
 
-          DbService.get('songs').then(
-            function(response){
-              scope.songs = _.toArray(response.data);
-              scope.songs.sort(function(a, b){
-                if(a.name.toLowerCase() < b.name.toLowerCase()){
-                  return -1;
-                }
-                if(a.name.toLowerCase() > b.name.toLowerCase()){
-                  return 1;
-                }
-                return 0;
-              });
-            }
-          );
+          writeMessage('Pokretanje...');
+
+          init();
+
+          function init(){
+            scope.inProgress = true;
+            return DbService.get('songs').then(
+              function(response){
+                scope.songs = _.toArray(response.data);
+                sortSongs();
+                writeMessage('Učitano!');
+              },
+              function(error){
+                writeError('Greška pri pokretanju!', error);
+              }
+            ).finally(
+              function(){ scope.inProgress = false; }
+            );
+          }
+
+          function sortSongs(){
+            scope.songs.sort(function(a, b){
+              if(a.name.toLowerCase() < b.name.toLowerCase()){
+                return -1;
+              }
+              if(a.name.toLowerCase() > b.name.toLowerCase()){
+                return 1;
+              }
+              return 0;
+            });
+          }
 
           function selectSong(song){
             scope.selectedSong = song;
             scope.selectedSongLyrics = '';
+            scope.inProgress = true;
             DbService.get('lyrics/' + scope.selectedSong.id).then(
               function(response){
-                console.log(response.data);
                 scope.selectedSongLyrics = response.data;
+                writeMessage('Učitan tekst za pesmu ' + scope.selectedSong.name + '.', undefined, response);
+              },
+              function(error){
+                writeError('Greška pri učitavanju teksta za pesmu ' + scope.selectedSong.name + '.', error);
               }
+            ).finally(
+              function(){ scope.inProgress = false; }
             );
           }
 
           function saveLyrics(){
-            scope.selectedSongLyrics = replaceHtmlTags(scope.selectedSongLyrics);
             var patchObject = {};
             patchObject[scope.selectedSong.id] = scope.selectedSongLyrics;
+            scope.inProgress = true;
             DbService.patch('lyrics', patchObject).then(
               function(response){
-                console.log(response);
+                writeMessage('Zapisan tekst za pesmu ' + scope.selectedSong.name + '.', undefined, response);
               },
               function(error){
-                console.log(error);
+                writeError('Greška pri zapisivanju teksta za pesmu ' + scope.selectedSong.name + '.', error);
+              }
+            ).finally(
+              function(){ scope.inProgress = false; }
+            );
+          }
+
+          function writeMessage(message, type, logObject){
+            scope.footerMessage = message;
+            scope.footerClass = type;
+            if(logObject){
+              console.log(message, logObject);
+            }
+          }
+
+          function writeError(message, errorObject){
+            writeMessage(message, 'red');
+            console.error(message, errorObject);
+          }
+
+          function openNewSongWindow(){
+            scope.showNewSongWindow = true;
+            scope.newSongModel.name = '';
+            scope.newSongModel.nameAlt = '';
+            scope.newSongModel.id = guid();
+            scope.newSongModel.active = true;
+          }
+
+          function saveNewSong(){
+            var newSongNameLower = _.toLower(scope.newSongModel.name).trim();
+            var nameAlreadyExists = _.find(scope.songs, function(song){
+              return newSongNameLower === _.toLower(song.name);
+            });
+            if(nameAlreadyExists){
+              alert('Ta pesma vec postoji!');
+              return;
+            }
+
+            scope.inProgress = true;
+            DbService.put('songs/' + scope.newSongModel.id, scope.newSongModel).then(
+              function(response){
+                scope.songs.push(_.clone(scope.newSongModel));
+                sortSongs();
+                writeMessage('Kreirana nova pesma ' + scope.newSongModel.name + '.', undefined, response);
+              },
+              function(error){
+                writeError('Greška pri zapisivanju nove pesme!', error);
+              }
+            ).finally(
+              function(){
+                scope.showNewSongWindow = false;
+                scope.inProgress = false;
               }
             );
           }
 
-          function replaceHtmlTags(str){
-            return str
-              .replace('<html', '<nt-html')
-              .replace('</html>', '</nt-html>')
-              .replace('<body', '<nt-body')
-              .replace('</body>', '</nt-body>');
+          function guid() { // Public Domain/MIT
+            var d = new Date().getTime();
+            if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+              d += performance.now(); //use high-precision timer if available
+            }
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+              var r = (d + Math.random() * 16) % 16 | 0;
+              d = Math.floor(d / 16);
+              return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
           }
 
           scope.selectSong = selectSong;
           scope.saveLyrics = saveLyrics;
+          scope.openNewSongWindow = openNewSongWindow;
+          scope.saveNewSong = saveNewSong;
 
         }
       };
