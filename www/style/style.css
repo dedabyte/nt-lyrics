@@ -173,5 +173,29 @@ b {
           color: white; }
         .sec-setlist .overlist-wrap .list .item.no-lyrics {
           color: red; }
+        .sec-setlist .overlist-wrap .list .item .item-date {
+          font-size: 16px;
+          color: #888888; }
+
+@media only screen and (max-width: 600px) {
+  .sec-setlist .header .popover-trigger {
+    font-size: 18px; }
+
+  .sec-setlist .overlist-wrap .list .item {
+    font-size: 16px; }
+
+  .sec-setlist .header .title-wrap .title-setlist {
+    font-size: 13px;
+    white-space: nowrap; }
+
+  .sec-setlist .header .title-wrap .title-song {
+    white-space: nowrap;
+    font-size: 18px; }
+
+  .sec-setlist .footer .song-nav .song-nav-title {
+    font-size: 18px; }
+
+  .sec-setlist .font-bolder {
+    font-size: 28px; } }
 
 /*# sourceMappingURL=style.css.map */

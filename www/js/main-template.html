@@ -36,9 +36,12 @@
     <div class="list setlists">
       <div class="item"
            ng-repeat="setlist in setlists"
-           ng-bind="setlist.name"
            ng-class="{ selected: selectedSetlist === setlist }"
-           ng-tap="selectSetlist(setlist)"></div>
+           ng-tap="selectSetlist(setlist)">
+        <span class="item-title" ng-bind="setlist.name"></span>
+        <br ng-show="setlist.day && setlist.month && setlist.year">
+        <span class="item-date" ng-show="setlist.day && setlist.month && setlist.year" ng-bind="setlist.day + '.' + setlist.month + '.' + setlist.year + '.'"></span>
+      </div>
     </div>
   </div>
 
