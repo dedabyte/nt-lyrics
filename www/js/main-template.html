@@ -1,4 +1,4 @@
-<section class="sec-setlist">
+<section class="sec-setlist" ng-class="{ dark: isDark }">
   <div class="header">
     <div class="popover-trigger setlist-list" ng-tap="isSetlistsListOpen = true">LISTE</div>
     <div class="title-wrap">
@@ -30,6 +30,7 @@
     <div class="button" ng-tap="changeFontSize(-1)">-</div>
   </div>
   <div class="font-bolder" ng-tap="toggleBold()" ng-class="{ selected: isBold }">B</div>
+  <div class="theme-toggle" ng-tap="toggleTheme()" ng-class="{ selected: isDark }">T</div>
 
   <div class="overlist-wrap" ng-show="isSetlistsListOpen">
     <div class="overlay" ng-tap="isSetlistsListOpen = false"></div>

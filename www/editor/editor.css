@@ -32,7 +32,8 @@ body {
       background-color: transparent;
       line-height: 32px;
       font-size: 13px;
-      color: #666; }
+      color: #666;
+      vertical-align: top; }
     .songs-wrap .songs-filter button {
       height: 32px;
       width: 32px;

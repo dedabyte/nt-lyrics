@@ -175,6 +175,15 @@
             LsService.set(LSKEYS.fontBold, scope.isBold);
           }
 
+          scope.isDark = LsService.get(LSKEYS.themeDarK);
+          if(scope.isDark !== true && scope.isDark !== false){
+            scope.isDark = false;
+          }
+          function toggleTheme(){
+            scope.isDark = !scope.isDark;
+            LsService.set(LSKEYS.themeDarK, scope.isDark);
+          }
+
           scope.selectSetlist = selectSetlist;
           scope.selectSong = selectSong;
           scope.selectNextSong = selectNextSong;
@@ -184,6 +193,7 @@
           scope.changeFontSize = changeFontSize;
           scope.getBold = getBold;
           scope.toggleBold = toggleBold;
+          scope.toggleTheme = toggleTheme;
 
           getLatestData();
 

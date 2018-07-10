@@ -92,7 +92,7 @@ b {
         color: white; }
     .sec-setlist .font-sizer .divider {
       height: 2px; }
-  .sec-setlist .font-bolder {
+  .sec-setlist .font-bolder, .sec-setlist .theme-toggle {
     position: absolute;
     bottom: calc(70px + 120px + 20px);
     left: 0;
@@ -104,12 +104,14 @@ b {
     background-color: #ddd;
     font-size: 34px;
     font-weight: bold; }
-    .sec-setlist .font-bolder.active {
+    .sec-setlist .font-bolder.active, .sec-setlist .theme-toggle.active {
       background-color: #ff8000;
       color: white; }
-    .sec-setlist .font-bolder.selected {
+    .sec-setlist .font-bolder.selected, .sec-setlist .theme-toggle.selected {
       background-color: #777;
       color: white; }
+  .sec-setlist .theme-toggle {
+    bottom: calc(70px + 120px + 60px + 30px); }
   .sec-setlist .footer {
     height: 70px;
     background-color: white;
@@ -176,6 +178,60 @@ b {
         .sec-setlist .overlist-wrap .list .item .item-date {
           font-size: 16px;
           color: #888888; }
+  .sec-setlist.dark .title-setlist,
+  .sec-setlist.dark .song-nav,
+  .sec-setlist.dark .font-sizer .button,
+  .sec-setlist.dark .font-bolder,
+  .sec-setlist.dark .theme-toggle {
+    background-color: #333 !important; }
+    .sec-setlist.dark .title-setlist.active,
+    .sec-setlist.dark .song-nav.active,
+    .sec-setlist.dark .font-sizer .button.active,
+    .sec-setlist.dark .font-bolder.active,
+    .sec-setlist.dark .theme-toggle.active {
+      background-color: #ff8000 !important; }
+  .sec-setlist.dark .popover-trigger,
+  .sec-setlist.dark .list {
+    background-color: #222 !important; }
+    .sec-setlist.dark .popover-trigger.active,
+    .sec-setlist.dark .list.active {
+      background-color: #ff8000 !important; }
+  .sec-setlist.dark .song-content,
+  .sec-setlist.dark .footer,
+  .sec-setlist.dark .title-song,
+  .sec-setlist.dark .list .item {
+    background-color: #444 !important; }
+  .sec-setlist.dark .song-content,
+  .sec-setlist.dark .title-song,
+  .sec-setlist.dark .popover-trigger,
+  .sec-setlist.dark .title-setlist,
+  .sec-setlist.dark .song-nav,
+  .sec-setlist.dark .font-sizer .button,
+  .sec-setlist.dark .font-bolder,
+  .sec-setlist.dark .theme-toggle,
+  .sec-setlist.dark .list .item {
+    color: #e8e8e8 !important; }
+    .sec-setlist.dark .song-content.active,
+    .sec-setlist.dark .title-song.active,
+    .sec-setlist.dark .popover-trigger.active,
+    .sec-setlist.dark .title-setlist.active,
+    .sec-setlist.dark .song-nav.active,
+    .sec-setlist.dark .font-sizer .button.active,
+    .sec-setlist.dark .font-bolder.active,
+    .sec-setlist.dark .theme-toggle.active,
+    .sec-setlist.dark .list .item.active {
+      background-color: #ff8000 !important; }
+  .sec-setlist.dark .star {
+    color: #d97700 !important; }
+  .sec-setlist.dark .font-bolder.selected,
+  .sec-setlist.dark .theme-toggle.selected {
+    color: #ff8000 !important; }
+  .sec-setlist.dark .list .item.selected {
+    background-color: #ff8000 !important; }
+    .sec-setlist.dark .list .item.selected .item-title, .sec-setlist.dark .list .item.selected .item-date {
+      color: white !important; }
+  .sec-setlist.dark .list .item.no-lyrics {
+    color: red !important; }
 
 @media only screen and (max-width: 600px) {
   .sec-setlist .header .popover-trigger {

@@ -31,32 +31,32 @@
         <p>
           <span class="label">Naziv:</span>
           <span class="widget">
-            <input type="text" class="input" ng-model="editSongModel.name" ng-keypress="createNameAlt(editSongModel, $event)" ng-disabled="!editSongModel"/>
+            <input type="text" class="input" ng-model="editSongModel.name" ng-keypress="createNameAlt(editSongModel, $event)" ng-disabled="!editSongModel || inProgress"/>
           </span>
         </p>
         <p>
           <span class="label">Naziv ALT:</span>
           <span class="widget">
-            <input type="text" class="input" ng-model="editSongModel.nameAlt" ng-disabled="!editSongModel"/>
+            <input type="text" class="input" ng-model="editSongModel.nameAlt" ng-disabled="!editSongModel || inProgress"/>
           </span>
         </p>
         <p>
           <span class="label">Aktivna:</span>
           <span class="widget">
-            <input type="checkbox" class="input" ng-model="editSongModel.active" ng-disabled="!editSongModel"/>
+            <input type="checkbox" class="input" ng-model="editSongModel.active" ng-disabled="!editSongModel || inProgress"/>
           </span>
         </p>
         <p>
           <span class="label">Id:</span>
           <span class="widget">
-            <input type="text" class="input" readonly style="font-size: 12px" ng-model="editSongModel.id" ng-disabled="!editSongModel"/>
+            <input type="text" class="input" readonly style="font-size: 12px" ng-model="editSongModel.id" ng-disabled="!editSongModel || inProgress"/>
           </span>
         </p>
 
         <button ng-click="saveSongMetadata()" ng-disabled="!selectedSong || inProgress">Sačuvaj podatke</button>
       </div>
       <div class="lyrics">
-        <textarea ng-model="selectedSongLyrics" ng-disabled="!editSongModel"></textarea>
+        <textarea ng-model="selectedSongLyrics" ng-disabled="!editSongModel || inProgress"></textarea>
         <button ng-click="saveLyrics()" ng-disabled="!selectedSong || inProgress">Sačuvaj tekst</button>
       </div>
     </div>

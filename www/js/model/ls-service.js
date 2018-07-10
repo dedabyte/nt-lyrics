@@ -11,6 +11,7 @@
     .constant('LSKEYS', {
       fontSize: 'fontSize',
       fontBold: 'fontBold',
+      themeDarK: 'themeDarK',
       data: 'data'
     });
 

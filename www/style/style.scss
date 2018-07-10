@@ -142,7 +142,7 @@ $color--buttons-bg: #ddd;
     }
   }
 
-  .font-bolder {
+  .font-bolder, .theme-toggle {
     position: absolute;
     bottom: calc(#{$height--setlist-footer} + #{$height--font-sizer} + 20px);
     left: 0;
@@ -165,6 +165,10 @@ $color--buttons-bg: #ddd;
       background-color: #777;
       color: white;
     }
+  }
+
+  .theme-toggle {
+    bottom: calc(#{$height--setlist-footer} + #{$height--font-sizer} + #{$height--font-bolder} + 30px);
   }
 
   .footer {
@@ -267,7 +271,82 @@ $color--buttons-bg: #ddd;
   //p {
   //  line-height: 1.2 !important;
   //}
+
+
+
+  &.dark {
+    .title-setlist,
+    .song-nav,
+    .font-sizer .button,
+    .font-bolder,
+    .theme-toggle {
+      background-color: #333 !important;
+
+      &.active {
+        background-color: $mainColor !important;
+      }
+    }
+
+    .popover-trigger,
+    .list {
+      background-color: #222 !important;
+
+      &.active {
+        background-color: $mainColor !important;
+      }
+    }
+
+    .song-content,
+    .footer,
+    .title-song,
+    .list .item {
+      background-color: #444 !important;
+    }
+
+    .song-content,
+    .title-song,
+    .popover-trigger,
+    .title-setlist,
+    .song-nav,
+    .font-sizer .button,
+    .font-bolder,
+    .theme-toggle,
+    .list .item {
+      color: #e8e8e8 !important;
+
+      &.active {
+        background-color: $mainColor !important;
+      }
+    }
+
+    .star {
+      color: #d97700 !important;
+    }
+
+    .font-bolder.selected,
+    .theme-toggle.selected {
+      color: $mainColor !important;
+    }
+
+    .list .item {
+
+      &.selected {
+        background-color: $mainColor !important;
+
+        .item-title, .item-date {
+          color: white !important;
+        }
+      }
+
+      &.no-lyrics {
+        color: red !important;
+      }
+    }
+  }
 }
+
+
+
 
 @media only screen and (max-width: 600px)  {
   .sec-setlist .header .popover-trigger {
