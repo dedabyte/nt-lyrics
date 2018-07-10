@@ -3,6 +3,10 @@ $toolbarHeight: 32px;
 $footerHeight: 24px;
 $altBgColor: #F7F5F5;
 
+@mixin border($which) {
+  border-#{$which}: 1px solid #dfdfdf;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,25 +28,31 @@ body {
 
 .songs-wrap {
   width: 300px;
-  border-right: 1px solid #dfdfdf;
+  @include border('right');
   display: flex;
   flex-direction: column;
 
   .songs-filter {
     height: $toolbarHeight;
     background-color: $altBgColor;
-    border-bottom: 1px solid #dfdfdf;
+    @include border('bottom');
 
     input {
-      display: block;
       height: 100%;
-      width: 100%;
+      width: calc(100% - #{$toolbarHeight});
       padding: 0 16px;
       margin: 0;
       border: none;
       background-color: transparent;
       line-height: $toolbarHeight;
       font-size: 13px;
+      color: #666;
+    }
+
+    button {
+      height: $toolbarHeight;
+      width: $toolbarHeight;
+      font-size: 24px;
       color: #666;
     }
   }
@@ -54,7 +64,7 @@ body {
     .song {
       padding: 8px 16px;
       cursor: pointer;
-      border-bottom: 1px solid #dfdfdf;
+      @include border('bottom');
 
       &:hover {
         background-color: #dfdfdf;
@@ -64,56 +74,103 @@ body {
         color: white;
         background-color: $mainColor;
       }
+
+      &.inactive {
+        font-style: italic;
+        color: #aaaaaa;
+      }
+      &.inactive.selected {
+        color: #dddddd;
+      }
     }
   }
 }
 
-.lyrics-wrap {
+.details-wrap {
   flex: 1;
   display: flex;
   flex-direction: column;
 
-  .toolbar {
-    height: $toolbarHeight;
-    border-bottom: 1px solid #dfdfdf;
+  .details {
+    display: flex;
+    flex: 1;
+
+    .metadata {
+      position: relative;
+      width: 300px;
+      background-color: $altBgColor;
+      @include border('right');
+      padding: 16px;
+    }
+
+    .lyrics {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+
+      textarea {
+        margin: 0;
+        padding: 16px;
+        font-size: 16px;
+        font-family: 'Consolas', monospace;
+        border: 0;
+        resize: none;
+        width: 100%;
+        height: 100%;
+      }
+    }
 
     button {
-      height: $toolbarHeight;
+      height: 24px;
       margin: 0;
       padding: 0 12px;
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
     }
   }
 
   .footer {
     height: $footerHeight;
     line-height: $footerHeight;
-    border-top: 1px solid #dfdfdf;
+    @include border('top');
     font-size: 13px;
     padding: 0 16px;
+    background-color: $altBgColor;
 
     &.red {
       color: red;
     }
   }
+}
 
-  .toolbar, .footer {
-    background-color: $altBgColor;
+.form {
+
+  p {
+    margin: 0 0 10px;
+    line-height: 24px;
+    position: relative;
   }
 
-  .lyrics {
-    flex: 1;
-    overflow: hidden;
+  .input {
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    padding: 3px 5px;
+    margin: 0;
+    height: 24px;
+    outline: none;
+    width: 100%;
+  }
 
-    textarea {
-      margin: 0;
-      padding: 16px;
-      font-size: 16px;
-      font-family: 'Consolas', monospace;
-      border: 0;
-      resize: none;
-      width: 100%;
-      height: 100%;
-    }
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  .label, .widget {
+    display: block;
+    height: 24px;
   }
 }
 
@@ -143,28 +200,8 @@ body {
   position: relative;
   height: 200px;
 
-  p {
-    padding: 0 16px;
-    margin: 10px 0;
-    // height: 24px;
-    line-height: 24px;
-    position: relative;
-  }
-
-  .input {
-    border-radius: 2px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    padding: 3px 5px;
-    margin: 0;
-    height: 24px;
-    outline: none;
-    width: 300px;
-  }
-
-  .label, .widget {
-    display: block;
-    height: 24px;
+  .body {
+    padding: 16px;
   }
 
   button {

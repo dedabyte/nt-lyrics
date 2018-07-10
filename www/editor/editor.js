@@ -6,7 +6,7 @@
 
   angular
     .module('app')
-    .service('DbService', function DbService($http, $q){
+    .service('DbService', function DbService($http){
       var svc = this;
 
       var auth = 'FKrJ6yxlCTJ85aGXYQ0SgaSDQ3AAUzZvpOIv80UP';
@@ -55,10 +55,10 @@
               function(response){
                 scope.songs = _.toArray(response.data);
                 sortSongs();
-                writeMessage('Učitano!');
+                writeMessage('Učitano.');
               },
               function(error){
-                writeError('Greška pri pokretanju!', error);
+                writeError('Greška pri pokretanju.', error);
               }
             ).finally(
               function(){ scope.inProgress = false; }
@@ -79,11 +79,20 @@
 
           function selectSong(song){
             scope.selectedSong = song;
+            scope.editSongModel = _.clone(scope.selectedSong);
+
+            if(scope.selectedSong.hasOwnProperty('lyrics')){
+              scope.selectedSongLyrics = scope.selectedSong.lyrics;
+              writeMessage('Učitan tekst za pesmu ' + scope.selectedSong.name + ' (keš).', undefined, {});
+              return;
+            }
+
             scope.selectedSongLyrics = '';
             scope.inProgress = true;
             DbService.get('lyrics/' + scope.selectedSong.id).then(
               function(response){
                 scope.selectedSongLyrics = response.data;
+                scope.selectedSong.lyrics = scope.selectedSongLyrics;
                 writeMessage('Učitan tekst za pesmu ' + scope.selectedSong.name + '.', undefined, response);
               },
               function(error){
@@ -100,6 +109,7 @@
             scope.inProgress = true;
             DbService.patch('lyrics', patchObject).then(
               function(response){
+                scope.selectedSong.lyrics = scope.selectedSongLyrics;
                 writeMessage('Zapisan tekst za pesmu ' + scope.selectedSong.name + '.', undefined, response);
               },
               function(error){
@@ -132,12 +142,12 @@
           }
 
           function saveNewSong(){
-            var newSongNameLower = _.toLower(scope.newSongModel.name).trim();
+            var newSongNameLower = replaceSrbChars(_.toLower(scope.newSongModel.name).trim());
             var nameAlreadyExists = _.find(scope.songs, function(song){
-              return newSongNameLower === _.toLower(song.name);
+              return newSongNameLower === replaceSrbChars(_.toLower(song.name));
             });
             if(nameAlreadyExists){
-              alert('Ta pesma vec postoji!');
+              alert('Ta pesma već postoji.');
               return;
             }
 
@@ -149,7 +159,7 @@
                 writeMessage('Kreirana nova pesma ' + scope.newSongModel.name + '.', undefined, response);
               },
               function(error){
-                writeError('Greška pri zapisivanju nove pesme!', error);
+                writeError('Greška pri kreiranju nove pesme.', error);
               }
             ).finally(
               function(){
@@ -157,6 +167,31 @@
                 scope.inProgress = false;
               }
             );
+          }
+
+          function saveSongMetadata(){
+            scope.inProgress = true;
+            DbService.put('songs/' + scope.editSongModel.id, scope.editSongModel).then(
+              function(response){
+                var updatedSongInList = _.find(scope.songs, { id: scope.editSongModel.id });
+                _.assign(updatedSongInList, scope.editSongModel);
+                sortSongs();
+                writeMessage('Izmenjena pesma ' + scope.editSongModel.name + '.', undefined, response);
+              },
+              function(error){
+                writeError('Greška pri izmeni pesme ' + scope.editSongModel.name + '.', error);
+              }
+            ).finally(
+              function(){
+                scope.inProgress = false;
+              }
+            );
+          }
+
+          function createNameAlt(model, event){
+            if(event.keyCode === 13){
+              model.nameAlt = replaceSrbChars(model.name);
+            }
           }
 
           function guid() { // Public Domain/MIT
@@ -171,10 +206,36 @@
             });
           }
 
+          function replaceSrbChars(str){
+            var map = {
+              'š': 's',
+              'đ': 'dj',
+              'č': 'c',
+              'ć': 'c',
+              'ž': 'z',
+              'Š': 'S',
+              'Đ': 'Dj',
+              'Č': 'C',
+              'Ć': 'C',
+              'Ž': 'Z'
+            };
+            var newStr = '';
+            _.forEach(str, function(char){
+              if(map.hasOwnProperty(char)){
+                newStr += map[char];
+              }else{
+                newStr += char;
+              }
+            });
+            return newStr;
+          }
+
           scope.selectSong = selectSong;
           scope.saveLyrics = saveLyrics;
           scope.openNewSongWindow = openNewSongWindow;
           scope.saveNewSong = saveNewSong;
+          scope.saveSongMetadata = saveSongMetadata;
+          scope.createNameAlt = createNameAlt;
 
         }
       };

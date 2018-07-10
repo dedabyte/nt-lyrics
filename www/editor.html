@@ -11,28 +11,54 @@
 
   <div class="songs-wrap">
     <div class="songs-filter">
-      <input type="text" placeholder="filter..." ng-model="songsFilter">
+      <input type="text" placeholder="filter..." ng-model="songsFilter"><button ng-click="openNewSongWindow()" ng-disabled="inProgress">+</button>
     </div>
     <div class="songs-list">
       <div class="song"
            ng-repeat="song in (filteredSongs = (songs | filter:songsFilter))"
-           ng-class="{ selected: $parent.selectedSong.id === song.id }"
+           ng-class="{ selected: $parent.selectedSong.id === song.id, inactive: !song.active }"
            ng-bind="song.name"
-           ng-click="selectSong(song)"
-           title="{{song.id}}"></div>
+           ng-click="selectSong(song)"></div>
     </div>
   </div>
 
 
 
 
-  <div class="lyrics-wrap">
-    <div class="toolbar">
-      <button ng-click="saveLyrics()" ng-disabled="!selectedSongLyrics || inProgress">Sačuvaj tekst</button>
-      <button ng-click="openNewSongWindow()" style="float: right" ng-disabled="inProgress">Nova pesma</button>
-    </div>
-    <div class="lyrics">
-      <textarea ng-model="selectedSongLyrics"></textarea>
+  <div class="details-wrap">
+    <div class="details">
+      <div class="metadata form">
+        <p>
+          <span class="label">Naziv:</span>
+          <span class="widget">
+            <input type="text" class="input" ng-model="editSongModel.name" ng-keypress="createNameAlt(editSongModel, $event)" ng-disabled="!editSongModel"/>
+          </span>
+        </p>
+        <p>
+          <span class="label">Naziv ALT:</span>
+          <span class="widget">
+            <input type="text" class="input" ng-model="editSongModel.nameAlt" ng-disabled="!editSongModel"/>
+          </span>
+        </p>
+        <p>
+          <span class="label">Aktivna:</span>
+          <span class="widget">
+            <input type="checkbox" class="input" ng-model="editSongModel.active" ng-disabled="!editSongModel"/>
+          </span>
+        </p>
+        <p>
+          <span class="label">Id:</span>
+          <span class="widget">
+            <input type="text" class="input" readonly style="font-size: 12px" ng-model="editSongModel.id" ng-disabled="!editSongModel"/>
+          </span>
+        </p>
+
+        <button ng-click="saveSongMetadata()" ng-disabled="!selectedSong || inProgress">Sačuvaj podatke</button>
+      </div>
+      <div class="lyrics">
+        <textarea ng-model="selectedSongLyrics" ng-disabled="!editSongModel"></textarea>
+        <button ng-click="saveLyrics()" ng-disabled="!selectedSong || inProgress">Sačuvaj tekst</button>
+      </div>
     </div>
     <div class="footer" ng-bind="footerMessage" ng-class="footerClass"></div>
   </div>
@@ -46,15 +72,15 @@
       <div class="window">
         <div class="window-x clickable-c" ng-click="showNewSongWindow = false">x</div>
         <div class="window-title">Nova pesma</div>
-        <div class="body">
+        <div class="body form">
           <p>
-            <span class="label">Naziv pesme:</span>
+            <span class="label">Naziv:</span>
             <span class="widget">
-              <input type="text" class="input" ng-model="newSongModel.name"/>
+              <input type="text" class="input" ng-model="newSongModel.name" ng-keypress="createNameAlt(newSongModel, $event)"/>
             </span>
           </p>
           <p>
-            <span class="label">Naziv pesme ALT:</span>
+            <span class="label">Naziv ALT:</span>
             <span class="widget">
               <input type="text" class="input" ng-model="newSongModel.nameAlt"/>
             </span>

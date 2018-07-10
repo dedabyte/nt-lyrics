@@ -24,15 +24,19 @@ body {
     background-color: #F7F5F5;
     border-bottom: 1px solid #dfdfdf; }
     .songs-wrap .songs-filter input {
-      display: block;
       height: 100%;
-      width: 100%;
+      width: calc(100% - 32px);
       padding: 0 16px;
       margin: 0;
       border: none;
       background-color: transparent;
       line-height: 32px;
       font-size: 13px;
+      color: #666; }
+    .songs-wrap .songs-filter button {
+      height: 32px;
+      width: 32px;
+      font-size: 24px;
       color: #666; }
   .songs-wrap .songs-list {
     flex: 1;
@@ -46,40 +50,74 @@ body {
       .songs-wrap .songs-list .song.selected {
         color: white;
         background-color: #ff8000; }
+      .songs-wrap .songs-list .song.inactive {
+        font-style: italic;
+        color: #aaaaaa; }
+      .songs-wrap .songs-list .song.inactive.selected {
+        color: #dddddd; }
 
-.lyrics-wrap {
+.details-wrap {
   flex: 1;
   display: flex;
   flex-direction: column; }
-  .lyrics-wrap .toolbar {
-    height: 32px;
-    border-bottom: 1px solid #dfdfdf; }
-    .lyrics-wrap .toolbar button {
-      height: 32px;
+  .details-wrap .details {
+    display: flex;
+    flex: 1; }
+    .details-wrap .details .metadata {
+      position: relative;
+      width: 300px;
+      background-color: #F7F5F5;
+      border-right: 1px solid #dfdfdf;
+      padding: 16px; }
+    .details-wrap .details .lyrics {
+      position: relative;
+      flex: 1;
+      overflow: hidden; }
+      .details-wrap .details .lyrics textarea {
+        margin: 0;
+        padding: 16px;
+        font-size: 16px;
+        font-family: 'Consolas', monospace;
+        border: 0;
+        resize: none;
+        width: 100%;
+        height: 100%; }
+    .details-wrap .details button {
+      height: 24px;
       margin: 0;
-      padding: 0 12px; }
-  .lyrics-wrap .footer {
+      padding: 0 12px;
+      position: absolute;
+      bottom: 16px;
+      right: 16px; }
+  .details-wrap .footer {
     height: 24px;
     line-height: 24px;
     border-top: 1px solid #dfdfdf;
     font-size: 13px;
-    padding: 0 16px; }
-    .lyrics-wrap .footer.red {
-      color: red; }
-  .lyrics-wrap .toolbar, .lyrics-wrap .footer {
+    padding: 0 16px;
     background-color: #F7F5F5; }
-  .lyrics-wrap .lyrics {
-    flex: 1;
-    overflow: hidden; }
-    .lyrics-wrap .lyrics textarea {
-      margin: 0;
-      padding: 16px;
-      font-size: 16px;
-      font-family: 'Consolas', monospace;
-      border: 0;
-      resize: none;
-      width: 100%;
-      height: 100%; }
+    .details-wrap .footer.red {
+      color: red; }
+
+.form p {
+  margin: 0 0 10px;
+  line-height: 24px;
+  position: relative; }
+.form .input {
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  padding: 3px 5px;
+  margin: 0;
+  height: 24px;
+  outline: none;
+  width: 100%; }
+.form input[type="checkbox"] {
+  width: 20px;
+  height: 20px; }
+.form .label, .form .widget {
+  display: block;
+  height: 24px; }
 
 .window-overlay {
   display: none;
@@ -104,23 +142,8 @@ body {
   box-shadow: 0 1px 4px #777;
   position: relative;
   height: 200px; }
-  .window p {
-    padding: 0 16px;
-    margin: 10px 0;
-    line-height: 24px;
-    position: relative; }
-  .window .input {
-    border-radius: 2px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    padding: 3px 5px;
-    margin: 0;
-    height: 24px;
-    outline: none;
-    width: 300px; }
-  .window .label, .window .widget {
-    display: block;
-    height: 24px; }
+  .window .body {
+    padding: 16px; }
   .window button {
     height: 24px;
     margin: 0;
