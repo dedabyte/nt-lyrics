@@ -16,6 +16,11 @@
 
           var jqSongContent = element.find('.song-content');
 
+          scope.authInput = '';
+          scope.isErrAuth = false;
+          scope.isErrData = false;
+          scope.isInitializing = true;
+
           scope.isSetlistsListOpen = false;
           scope.isSongsListOpen = false;
 
@@ -23,12 +28,58 @@
           scope.selectedSong = null;
 
           function getLatestData(){
-            DbService.getLatestData().then(
-              init
-            );
+            var auth = LsService.get(LSKEYS.auth);
+            if(!auth){
+              scope.isInitializing = false;
+              scope.isErrAuth = true;
+              return;
+            }
+
+            scope.isInitializing = true;
+            DbService
+              .getLatestData(auth)
+              .then(
+                init,
+                catchError
+              )
+              .finally(function(){
+                scope.isInitializing = false;
+              });
+          }
+
+          function catchError(error){
+            if(error === 'ERR_DATA'){
+              scope.isErrData = true;
+            }else if(error === 'ERR_AUTH'){
+              scope.isErrAuth = true;
+              scope.authInput = '';
+              LsService.remove(LSKEYS.auth);
+              LsService.remove(LSKEYS.data);
+            }
+          }
+
+          function authOnKeyup(e){
+            if(e.keyCode === 13){
+              setAuth();
+            }
+          }
+
+          function authOnButton(){
+            setAuth();
+          }
+
+          function setAuth(){
+            // token sigurno nije kraci od 20 karaktera...
+            if(scope.authInput.length < 20){
+              return;
+            }
+
+            LsService.set(LSKEYS.auth, scope.authInput);
+            getLatestData();
           }
 
           function init(data){
+            scope.isErrAuth = false;
             arrSetlists = _.toArray(data.setlists);
             arrSetlists.sort(function(a, b){
               var ats = a.updated || a.created;
@@ -150,9 +201,11 @@
           }
 
           scope.fontSize = LsService.get(LSKEYS.fontSize) || 22;
+
           function getFontSize(){
             return '.p { font-size: ' + scope.fontSize + 'px; min-height: ' + scope.fontSize + 'px; }'
           }
+
           function changeFontSize(increment){
             scope.fontSize = scope.fontSize + increment;
             LsService.set(LSKEYS.fontSize, scope.fontSize);
@@ -162,6 +215,7 @@
           if(scope.isBold !== true && scope.isBold !== false){
             scope.isBold = true;
           }
+
           function getBold(){
             if(!scope.isBold){
               return '.p { font-weight: normal; }';
@@ -170,6 +224,7 @@
             }
             //return '';
           }
+
           function toggleBold(){
             scope.isBold = !scope.isBold;
             LsService.set(LSKEYS.fontBold, scope.isBold);
@@ -179,11 +234,14 @@
           if(scope.isDark !== true && scope.isDark !== false){
             scope.isDark = false;
           }
+
           function toggleTheme(){
             scope.isDark = !scope.isDark;
             LsService.set(LSKEYS.themeDarK, scope.isDark);
           }
 
+          scope.authOnKeyup = authOnKeyup;
+          scope.authOnButton = authOnButton;
           scope.selectSetlist = selectSetlist;
           scope.selectSong = selectSong;
           scope.selectNextSong = selectNextSong;

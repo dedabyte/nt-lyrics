@@ -272,6 +272,45 @@ $color--buttons-bg: #ddd;
   //  line-height: 1.2 !important;
   //}
 
+  .blocker {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+
+    &.init {
+      z-index: 11;
+    }
+
+    &.auth {
+      z-index: 10;
+
+      p {
+        text-align: center;
+        margin: 0 0 20px 0;
+      }
+
+      input {
+        width: 300px;
+        margin: 0 0 20px 0;
+        padding: 5px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      button {
+        padding: 5px 20px;
+      }
+    }
+  }
+
 
 
   &.dark {
@@ -341,6 +380,11 @@ $color--buttons-bg: #ddd;
       &.no-lyrics {
         color: red !important;
       }
+    }
+
+    .blocker {
+      background-color: #444 !important;
+      color: white;
     }
   }
 }

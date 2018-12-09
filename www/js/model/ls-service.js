@@ -12,6 +12,7 @@
       fontSize: 'fontSize',
       fontBold: 'fontBold',
       themeDarK: 'themeDarK',
+      auth: 'auth',
       data: 'data'
     });
 

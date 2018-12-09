@@ -56,4 +56,14 @@
            ng-tap="selectSong(song, $index)"></div>
     </div>
   </div>
+
+  <div class="blocker init" ng-hide="!isInitializing">učitavanje...</div>
+
+  <div class="blocker auth" ng-hide="!isInitializing && !isErrAuth">
+    <p>Unesi password</p>
+    <input type="text" ng-model="authInput" ng-keyup="authOnKeyup($event)">
+    <button ng-click="authOnButton()">Uđi</button>
+  </div>
 </section>
+
+

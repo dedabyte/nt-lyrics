@@ -178,6 +178,33 @@ b {
         .sec-setlist .overlist-wrap .list .item .item-date {
           font-size: 16px;
           color: #888888; }
+  .sec-setlist .blocker {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: white; }
+    .sec-setlist .blocker.init {
+      z-index: 11; }
+    .sec-setlist .blocker.auth {
+      z-index: 10; }
+      .sec-setlist .blocker.auth p {
+        text-align: center;
+        margin: 0 0 20px 0; }
+      .sec-setlist .blocker.auth input {
+        width: 300px;
+        margin: 0 0 20px 0;
+        padding: 5px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        text-align: center; }
+      .sec-setlist .blocker.auth button {
+        padding: 5px 20px; }
   .sec-setlist.dark .title-setlist,
   .sec-setlist.dark .song-nav,
   .sec-setlist.dark .font-sizer .button,
@@ -232,6 +259,9 @@ b {
       color: white !important; }
   .sec-setlist.dark .list .item.no-lyrics {
     color: red !important; }
+  .sec-setlist.dark .blocker {
+    background-color: #444 !important;
+    color: white; }
 
 @media only screen and (max-width: 600px) {
   .sec-setlist .header .popover-trigger {

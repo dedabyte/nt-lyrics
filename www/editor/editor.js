@@ -9,7 +9,7 @@
     .service('DbService', function DbService($http){
       var svc = this;
 
-      var auth = 'FKrJ6yxlCTJ85aGXYQ0SgaSDQ3AAUzZvpOIv80UP';
+      var auth = 'nHqYYp2VJMNiTxaAGRZ2p3qZhDTIb6iRPgBTkRQj';
       var baseUrl = 'https://nt-setlist.firebaseio.com/';
 
       function getUrl(path, params){
